@@ -7,5 +7,25 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+
+  <ul>
+
+  <% tripdata.forEach(function(trip){ %>
+
+    <div>
+      <label> Ride ID: trip.ride_id</label>
+    </div>
+
+    <div>
+      <label> Ride ID:  <output> trip.ride_id </output> </label>
+    </div>
+    <hr>
+
+    
+
+  <% }); %>
+
+  </ul>
+
   </body>
 </html>
