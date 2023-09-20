@@ -1,1 +1,1 @@
-# DBMS_NEU
+# NEU_DBMS
