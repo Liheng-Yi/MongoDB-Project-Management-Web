@@ -1,8 +1,92 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: antiquewhite;
 }
 
 a {
   color: #00B7FF;
+}
+
+/* Ensure the image takes the full height of its container */
+.img-fluid.h-100 {
+    right: 0;         /* Positioned to the right edge of the viewport */
+    bottom: 0; 
+}
+
+/*👉* {
+    border: 1px solid red;  ➡ This will add a red border around all elements ⬅
+} 
+👈*/
+
+
+.scrollable-column {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6; /* Border color taken from Bootstrap's Card component */
+    border-radius: .25rem; /* Border radius taken from Bootstrap's Card component */
+    padding: 1rem;
+
+
+}
+.scrollable-column li {
+    margin-bottom: 7px; /* Adjust as needed */
+}
+
+/* Custom scrollbar styles */
+.scrollable-column::-webkit-scrollbar {
+    width: 12px;
+}
+
+.scrollable-column::-webkit-scrollbar-thumb {
+    background-color: #3adcc9; /* Color taken from Bootstrap's primary button */
+    border-radius: 6px;
+}
+
+.scrollable-column::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.column-content {
+    height: 400px; /* Adjust as needed */
+    overflow-y: scroll;
+    padding: 1rem;
+    border: 1px solid #a23876; /* Border color taken from Bootstrap's Card component */
+    border-radius: .25rem; /* Border radius taken from Bootstrap's Card component */
+}
+
+h2 {
+    color: #007BFF; /* Color taken from Bootstrap's primary button */
+}
+
+.bg-light {
+    min-height: 400px;
+    position: fixed;
+    left: 0;  /* Align to the left of the viewport */
+    top: 0;   /* Align to the top of the viewport */
+}
+
+.full-height-col {
+    height: 100vh; /* This will make the column take the full viewport height */
+    width: 150px;
+    
+}
+
+.nav-item {
+    margin-bottom: 20px;  /* Adjust this value according to your preference */
+    /* margin-top: 120px; */
+    
+}
+
+.top-nav{
+    margin-top: 300px;
+}
+
+.table-title{
+    text-align: center; /* This centers the text horizontally */
+}
+
+.info-table{
+    margin-left: 20%;
+
 }

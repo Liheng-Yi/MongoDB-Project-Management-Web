@@ -4,6 +4,9 @@ let router = express.Router();
 const { getTripData} = require("../db/dbConnector_Sqlite.js")
 
 
+
+
+
 /* GET home page. */
 router.get('/', async function(req, res, next) {
 
