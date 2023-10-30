@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title><%= title %></title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
+<link rel='stylesheet' href='/public/stylesheets/style.css' />
+
+<style>
+  .scrollable-column {
+    max-height: 400px;  /* Adjust this value according to your preference */
+    overflow-y: auto;
+  }
+</style>
+</head>
+
+<body>
+  <div class="container-fluid my-2">
+    <div class="row">
+      <!-- Added Navbar Here -->
+      <div class="col-md-2 bg-light full-height-col">
+        <ul class="nav flex-column custom-nav">
+          <%- include('partials/navbar') %>
+        </ul>
+      </div>
+      <div class="col-md-7 info-table">
+        <h3 class ="table-title">Clients</h3>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addClientModal">Add Client</button>
+
+        <table class="table table-striped custom-table">
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Actions</th> <!-- New Actions column -->
+                </tr>
+            </thead>
+            <tbody>
+                <% tripdata.forEach(function(trip){ %>
+                    <tr data-id="<%= trip.clientID %>"> <!-- Add data-id attribute to use it later -->
+                        <td><%= trip.name %></td>
+                        <td><%= trip.clientID %></td>
+                        <td><%= trip.email %></td>
+                        <td>
+                            <!-- Dropdown for actions -->
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item modify-item" href="#">Modify</a>
+                                    <a class="dropdown-item delete-item" href="#">Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<!-- pop-up to add new client -->
+<div class="modal fade" id="addClientModal" tabindex="-1" role="dialog" aria-labelledby="addClientModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addClientModalLabel">Add New Client</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addClientForm">
+          <div class="form-group">
+            <label for="clientName">Client Name</label>
+            <input type="text" class="form-control" id="clientName" required>
+          </div>
+          <div class="form-group">
+            <label for="clientEmail">Email</label>
+            <input type="text" class="form-control" id="clientEmail" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Client</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<script>
+  $(document).ready(function() {
+    $('#addClientForm').on('submit', function(e) {
+      e.preventDefault();  // Prevents the default form submission
+
+      const clientData = {
+        name: $('#clientName').val(),
+        email: $('#clientEmail').val()
+      };
+
+      $.ajax({
+        url: '/clients', // The backend route/API endpoint
+        method: 'POST',
+        data: clientData,
+        success: function(response) {
+          $('#addClientModal').modal('hide');
+          window.location.href = 'http://localhost:3000/client';// Refresh the page, mvp
+        },
+        error: function(error) {
+          // Handle error - show a message or alert to the user
+          alert('Failed to add client. Please try again.');
+        }
+      });
+    });
+
+        // Listen to the delete action
+    $('.delete-item').on('click', function(e) {
+        e.preventDefault();
+        const clientID = $(this).closest('tr').data('id');
+        console.log("11")
+        
+        $.ajax({
+            url: `/clients/${clientID}`, // assuming RESTful API convention
+            method: 'DELETE',
+            success: function(response) {
+              console.log("yes!")
+              window.location.href = 'http://localhost:3000/client';// Refresh the page, mvp
+            },
+            error: function(error) {
+                alert('Failed to delete client. Please try again.');
+            }
+            
+        });
+    });
+
+    // Listen to the modify action
+    $('.modify-item').on('click', function(e) {
+        e.preventDefault();
+        const clientID = $(this).closest('tr').data('id');
+        
+        // Do whatever you need for modification here, for instance, you can pop up a modal to edit the details.
+    });
+  });
+</script>
+
+
+
+
+</body>
+</html>
