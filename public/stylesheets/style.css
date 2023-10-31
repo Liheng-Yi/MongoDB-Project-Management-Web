@@ -1,12 +1,13 @@
 body {
   padding: 50px;
   font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: antiquewhite;
+  background-color: rgb(68,70,84,255);
+  color: white;
 }
 
-a {
+/* a {
   color: #00B7FF;
-}
+} */
 
 /* Ensure the image takes the full height of its container */
 .img-fluid.h-100 {
@@ -38,38 +39,12 @@ a {
     width: 12px;
 }
 
-.scrollable-column::-webkit-scrollbar-thumb {
-    background-color: #3adcc9; /* Color taken from Bootstrap's primary button */
-    border-radius: 6px;
-}
-
-.scrollable-column::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-}
-
 .column-content {
     height: 400px; /* Adjust as needed */
     overflow-y: scroll;
     padding: 1rem;
-    border: 1px solid #a23876; /* Border color taken from Bootstrap's Card component */
-    border-radius: .25rem; /* Border radius taken from Bootstrap's Card component */
-}
-
-h2 {
-    color: #007BFF; /* Color taken from Bootstrap's primary button */
-}
-
-.bg-light {
-    min-height: 400px;
-    position: fixed;
-    left: 0;  /* Align to the left of the viewport */
-    top: 0;   /* Align to the top of the viewport */
-}
-
-.full-height-col {
-    height: 100vh; /* This will make the column take the full viewport height */
-    width: 150px;
-    
+    border: 1px solid #956581; /* Border color taken from Bootstrap's Card component */
+    border-radius: .35rem; /* Border radius taken from Bootstrap's Card component */
 }
 
 .nav-item {
@@ -82,6 +57,7 @@ h2 {
     margin-top: 300px;
 }
 
+
 .table-title{
     text-align: center; /* This centers the text horizontally */
 }
@@ -92,12 +68,39 @@ h2 {
 }
 
 .custom-table tr:hover {
-    background-color: #f5f5f5;  /* light hover effect */
+    background-color: #444444;  /* light hover effect */
 }
 
 .custom-table th, .custom-table td {
     padding: 12px 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #cf8989;
     text-align: left;
+    color: #dee2e6;
 }
 
+.bg-light {
+    min-height: 400px;
+    position: fixed;
+    left: 0;  /* Align to the left of the viewport */
+    top: 0;   /* Align to the top of the viewport */
+}
+
+.full-height-col {
+    height: 100vh; /* This will make the column take the full viewport height */
+    width: 150px;
+    background-color: #2b1010; 
+}
+
+.col-md-2.bg-light.full-height-col {
+    background-color: rgb(32,33,35,255) !important;
+    
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.btn {
+    color: white !important;
+    background-color: rgb(52,53,65,255);
+}

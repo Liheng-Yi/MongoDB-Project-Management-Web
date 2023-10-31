@@ -55,6 +55,23 @@ async function addClient(sql, name, email, req, res) {
         res.status(500).send("Server error");
     }
 }
+async function modifyClient(sql, name, email, clientID, req, res) {
+    try {
+        const db = await connect();
+        await db.run(sql, [name, email, clientID], (err) => {  // Note the order of parameters
+            if (err) {
+                console.error(err.message);
+                res.status(500).send("Failed to modify client");
+                return;
+            }
+            res.status(200).send("Client modified successfully");
+        });
+        db.close();
+    } catch (error) {
+        console.error("An error occurred:", error);
+        res.status(500).send("Server error");
+    }
+}
 
 async function addAddress(sql, address, cID, req, res) {
     try {
@@ -79,31 +96,50 @@ const deleteClient = async (clientId) => {
     
     // Start a database transaction
     await db.run('BEGIN TRANSACTION');
-
     try {
-        // First, delete the addresses associated with the client
         let sql = 'DELETE FROM Addresses WHERE cID = ?';
         await db.run(sql, [clientId]);
-
-        // Then, delete the client itself
         sql = 'DELETE FROM Clients WHERE clientID = ?';
         await db.run(sql, [clientId]);
-
-        // Commit the transaction if everything went fine
         await db.run('COMMIT');
-
-        // Return the number of clients deleted (should be 1 if successful)
     } catch (err) {
-        // If any error occurs, roll back the changes
         await db.run('ROLLBACK');
-        throw err;  // Re-throw the error so the caller can handle it
+        throw err;  
     } finally {
-        // Close the database connection
         await db.close();
     }
 }
 
+const deleteAddress = async (addressId) => {
+    const db = await connect();
+     try {
+        let sql = 'DELETE FROM Addresses WHERE addressID = ?';
+        await db.run(sql, [addressId]);
+    } catch (err) {
+        console.error("An error occurred:", error);
+        res.status(500).send("Server error");
+    } 
+    await db.close();
+}
 
+const modifyAddress = async(sql, address, cID, addressID, req, res) =>{
+    const db = await connect();
+    try {
+        
+        await db.run(sql, [address, cID, addressID], (err) => {
+            if (err) {
+                console.error(err.message);
+                res.status(500).send("Failed to modify address");
+                return;
+            }
+            res.status(200).send("Address modified successfully");
+        });
+        db.close();
+    } catch (error) {
+        console.error("An error occurred:", error);
+        res.status(500).send("Server error");
+    }
+}
 
 
 
@@ -112,7 +148,10 @@ module.exports = {
     addClient,
     getAddressData,
     deleteClient,
-    addAddress
+    addAddress,
+    modifyClient,
+    deleteAddress,
+    modifyAddress
 }
 
 
