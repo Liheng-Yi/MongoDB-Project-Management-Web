@@ -167,7 +167,7 @@
             url: `/address/${addressID}`, // assuming RESTful API convention
             method: 'DELETE',
             success: function(response) {
-                window.location.href = 'http://localhost:3000/address';// Refresh the page, mvp
+                window.location.href = '/address';// Refresh the page, mvp
             },
             error: function(error) {
                 alert('Failed to delete address. Please try again.');
@@ -206,7 +206,7 @@ $('#modifyAddressForm').on('submit', function(e) {
         data: modifiedData,
         success: function(response) {
             $('#modifyAddressModal').modal('hide');
-            window.location.href = 'http://localhost:3000/address';// Refresh the page, mvp
+            window.location.href = '/address';// Refresh the page, mvp
         },
         error: function(error) {
             alert('Failed to modify address. Please try again.');

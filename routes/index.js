@@ -1,16 +1,17 @@
 let express = require('express');
 let router = express.Router();
 
+const {
+    getTripData,
+    addClient,
+    getAddressData,
+    deleteClient,
+    addAddress,
+    modifyClient,
+    deleteAddress,
+    modifyAddress
+} = require("../db/dbConnector_Sqlite.js");
 
-
-const { getTripData} = require("../db/dbConnector_Sqlite.js")
-const { addClient} = require("../db/dbConnector_Sqlite.js")
-const { getAddressData} = require("../db/dbConnector_Sqlite.js")
-const { deleteClient} = require("../db/dbConnector_Sqlite.js")
-const { addAddress} = require("../db/dbConnector_Sqlite.js")
-const { modifyClient} = require("../db/dbConnector_Sqlite.js")
-const { deleteAddress} = require("../db/dbConnector_Sqlite.js")
-const { modifyAddress} = require("../db/dbConnector_Sqlite.js")
 
 /* GET home page. */
 router.get('/client', async function(req, res, next) {
@@ -87,7 +88,6 @@ router.patch('/clients/:id', async function(req, res) {
 
 router.patch('/addresses/:id', async function(req, res) {
     const { address, cID } = req.body;
-    console.log("addressID:!!!!!!", req.params.id)
     const sql = `UPDATE addresses SET address = ?, cID = ? WHERE addressID = ?`;
     try{
       await modifyAddress(sql, address, cID, req.params.id, req, res)

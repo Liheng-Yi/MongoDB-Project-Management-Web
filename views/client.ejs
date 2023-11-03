@@ -141,7 +141,7 @@
         data: clientData,
         success: function(response) {
           $('#addClientModal').modal('hide');
-          window.location.href = 'http://localhost:3000/client';// Refresh the page, mvp
+          window.location.href = '/client';// Refresh the page, mvp
         },
         error: function(error) {
           // Handle error - show a message or alert to the user
@@ -161,7 +161,7 @@
             method: 'DELETE',
             success: function(response) {
               console.log("yes!")
-              window.location.href = 'http://localhost:3000/client';// Refresh the page, mvp
+              window.location.href = '/client';// Refresh the page, mvp
             },
             error: function(error) {
                 alert('Failed to delete client. Please try again.');
@@ -206,7 +206,7 @@
             data: clientData,
             success: function(response) {
                 $('#modifyClientModal').modal('hide');
-                window.location.href = 'http://localhost:3000/client';// Refresh the page
+                window.location.href = '/client';// Refresh the page
             },
             error: function(error) {
                 alert('Failed to modify client. Please try again.');
