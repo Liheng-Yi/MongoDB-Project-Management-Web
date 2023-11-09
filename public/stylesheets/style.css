@@ -1,74 +1,70 @@
 body {
   padding: 50px;
   font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: rgb(68,70,84,255);
+  background-color: #444c5c; /* Lightened the background for better contrast */
   color: white;
 }
 
-/* a {
+/* Link styles */
+a {
   color: #00B7FF;
-} */
-
-/* Ensure the image takes the full height of its container */
-.img-fluid.h-100 {
-    right: 0;         /* Positioned to the right edge of the viewport */
-    bottom: 0; 
+  transition: color 0.3s ease; /* Smooth transition for hover effects */
 }
 
-/*👉* {
-    border: 1px solid red;  ➡ This will add a red border around all elements ⬅
-} 
-👈*/
+/* Ensure the image is responsive and aligns with the container properly */
+.img-fluid.h-100 {
+    max-height: 100%; /* Ensures the image is not taller than its container */
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+}
 
-
+/* Scrollable column styles */
 .scrollable-column {
     max-height: 400px;
     overflow-y: auto;
-    border: 1px solid #dee2e6; /* Border color taken from Bootstrap's Card component */
-    border-radius: .25rem; /* Border radius taken from Bootstrap's Card component */
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
     padding: 1rem;
-
-
 }
+
 .scrollable-column li {
-    margin-bottom: 7px; /* Adjust as needed */
+    margin-bottom: 7px;
 }
 
-/* Custom scrollbar styles */
-.scrollable-column::-webkit-scrollbar {
+/* Custom scrollbar for Webkit browsers and standard scrollbar for others */
+.scrollable-column::-webkit-scrollbar,
+.scrollable-column::-webkit-scrollbar-thumb {
     width: 12px;
+}
+.scrollable-column::-webkit-scrollbar-thumb {
+    background-color: #888; /* Custom scrollbar color */
 }
 
 .column-content {
-    height: 400px; /* Adjust as needed */
+    height: 400px;
     overflow-y: scroll;
     padding: 1rem;
-    border: 1px solid #956581; /* Border color taken from Bootstrap's Card component */
-    border-radius: .35rem; /* Border radius taken from Bootstrap's Card component */
+    border: 1px solid #956581;
+    border-radius: .35rem;
 }
 
 .nav-item {
-    margin-bottom: 20px;  /* Adjust this value according to your preference */
-    /* margin-top: 120px; */
-    
+    margin-bottom: 20px;
 }
 
-.top-nav{
+.top-nav {
     margin-top: 300px;
 }
 
-
-.table-title{
-    text-align: center; /* This centers the text horizontally */
+.table-title {
+    text-align: center;
 }
 
-.info-table{
+.info-table {
     margin-left: 20%;
-
 }
 
 .custom-table tr:hover {
-    background-color: #444444;  /* light hover effect */
+    background-color: #555; /* Slightly darker for hover effect */
 }
 
 .custom-table th, .custom-table td {
@@ -81,26 +77,35 @@ body {
 .bg-light {
     min-height: 400px;
     position: fixed;
-    left: 0;  /* Align to the left of the viewport */
-    top: 0;   /* Align to the top of the viewport */
+    left: 0;
+    top: 0;
 }
 
 .full-height-col {
-    height: 100vh; /* This will make the column take the full viewport height */
+    height: 100vh;
     width: 150px;
-    background-color: #2b1010; 
+    background-color: #2b1010;
 }
 
 .col-md-2.bg-light.full-height-col {
-    background-color: rgb(32,33,35,255) !important;
-    
+    background-color: #202123 !important; /* Overrides bootstrap color */
 }
 
 .nav-link {
     color: white !important;
+    transition: color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.nav-link:hover {
+    color: #00B7FF !important; /* Hover color for links */
 }
 
 .btn {
     color: white !important;
-    background-color: rgb(52,53,65,255);
+    background-color: #343541;
+    transition: background-color 0.3s ease; /* Smooth background transition for hover effects */
+}
+
+.btn:hover {
+    background-color: #50515e; /* Hover color for buttons */
 }

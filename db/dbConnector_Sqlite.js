@@ -37,6 +37,15 @@ async function getAddressData() {
     return tripdata
 }
 
+async function getProjectData() {
+    const db = await connect()
+    const tripdata = 
+        await db.all("SELECT * FROM Projects");
+        
+        console.log("db connector got the data", tripdata )
+    return tripdata
+}
+
 
 async function addClient(sql, name, email, req, res) {
     try {
@@ -151,7 +160,8 @@ module.exports = {
     addAddress,
     modifyClient,
     deleteAddress,
-    modifyAddress
+    modifyAddress,
+    getProjectData
 }
 
 

@@ -11,7 +11,7 @@
 
 <style>
   .scrollable-column {
-    max-height: 400px;  /* Adjust this value according to your preference */
+    max-height: 400px; 
     overflow-y: auto;
   }
 </style>
@@ -20,7 +20,6 @@
 <body>
   <div class="container-fluid my-2">
     <div class="row">
-      <!-- Added Navbar Here -->
       <%- include('partials/navbar') %>
       <div class="col-md-7 info-table">
         <h3 class ="table-title">Addresses</h3>
@@ -32,7 +31,7 @@
                     <th>address</th>
                     <th>addressID</th>
                     <th>cID</th>
-                    <th>Actions</th> <!-- New Actions column -->
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -121,11 +120,8 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
 <!-- Popper.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
@@ -144,16 +140,14 @@
 
 
       $.ajax({
-        url: '/addresses', // The backend route/API endpoint
+        url: '/addresses', //   endpoint
         method: 'POST',
         data: addressData,
         success: function(response) {
-          // Handle success - you could, for instance, close the modal and refresh the client list
           $('#addAddressModal').modal('hide');
-          location.reload(); // Refresh the page to see the new client (not optimal, but for MVP it's fine)
+          location.reload(); 
         },
         error: function(error) {
-          // Handle error - show a message or alert to the user
           alert('Failed to add address. Please try again.');
         }
       });
@@ -164,10 +158,10 @@
         const addressID = $(this).closest('tr').data('id');
         
         $.ajax({
-            url: `/address/${addressID}`, // assuming RESTful API convention
+            url: `/address/${addressID}`, 
             method: 'DELETE',
             success: function(response) {
-                window.location.href = '/address';// Refresh the page, mvp
+                window.location.href = '/address';// Refresh the page, mvp fn
             },
             error: function(error) {
                 alert('Failed to delete address. Please try again.');
@@ -180,10 +174,9 @@
 $('.modify-item').on('click', function(e) {
     e.preventDefault();
     const addressID = $(this).closest('tr').data('id');
-    const address = $(this).closest('tr').find('td:nth-child(1)').text();  // The first td has the address
-    const cID = $(this).closest('tr').find('td:nth-child(3)').text();  // The third td has the client ID
+    const address = $(this).closest('tr').find('td:nth-child(1)').text();  
+    const cID = $(this).closest('tr').find('td:nth-child(3)').text();
 
-    // Populate the values in the modal fields
     $('#modifyAddress').val(address);
     $('#modifyCID').val(cID);
     $('#modifyAddressID').val(addressID);
@@ -201,8 +194,8 @@ $('#modifyAddressForm').on('submit', function(e) {
     };
     const addressID = $('#modifyAddressID').val();
     $.ajax({
-        url: `/addresses/${addressID}`, // The backend route/API endpoint for modification
-        method: 'PATCH', // Assuming you're using RESTful conventions, PATCH is for modifications
+        url: `/addresses/${addressID}`, 
+        method: 'PATCH', 
         data: modifiedData,
         success: function(response) {
             $('#modifyAddressModal').modal('hide');

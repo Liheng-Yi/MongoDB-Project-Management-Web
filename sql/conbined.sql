@@ -7,14 +7,14 @@ DROP TABLE IF EXISTS Clients;
 
 -- Create the Clients table
 CREATE TABLE Clients (
-    ClientId INTEGER PRIMARY KEY,
+    clientID INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     email TEXT NOT NULL
 );
 
 -- Create the Employees table
 CREATE TABLE Employees (
-    EmployeeID INTEGER PRIMARY KEY,
+    employeeID INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     billingRate INTEGER
@@ -22,28 +22,29 @@ CREATE TABLE Employees (
 
 -- Create the Addresses table
 CREATE TABLE Addresses (
-    AddressId INTEGER PRIMARY KEY,
+    addressID INTEGER PRIMARY KEY,
     address TEXT NOT NULL,
-    ClientId INTEGER,
-    FOREIGN KEY (ClientId) REFERENCES Clients(ClientId)
+    cID INTEGER,
+    FOREIGN KEY (cID) REFERENCES Clients(clientID)
 );
 
 -- Create the Projects table
 CREATE TABLE Projects (
-    ProjectID INTEGER PRIMARY KEY,
+    projectId INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
-    AId INTEGER,
-    FOREIGN KEY (AId) REFERENCES Addresses(AddressId)
+    aID INTEGER,
+    FOREIGN KEY (aID) REFERENCES Addresses(addressID)
 );
 
 -- Create the join table for Projects and Employees (Projects_Employees)
 CREATE TABLE Projects_Employees (
-    EId INTEGER NOT NULL,
-    PId INTEGER NOT NULL,
-    PRIMARY KEY (EId, PId),
-    FOREIGN KEY (EId) REFERENCES Employees(EmployeeID),
-    FOREIGN KEY (PId) REFERENCES Projects(ProjectID)
+    eID INTEGER NOT NULL,
+    pID INTEGER NOT NULL,
+    PRIMARY KEY (eID, pID),
+    FOREIGN KEY (eID) REFERENCES Employees(employeeID),
+    FOREIGN KEY (pID) REFERENCES Projects(projectId)
 );
+
 
 
 INSERT INTO `Clients` (`name`,`email`)
@@ -101,7 +102,7 @@ INSERT INTO `Employees` (`name`,`email`,`billingRate`)
 VALUES
   ("Finn Lyons","nullam@hotmail.org",87),
   ("Chaney Henderson","metus.in@yahoo.net",77),
-  ("Heidi Hardy","fusce.fermentum@aol.edu",70),
+  ("HeIDi Hardy","fusce.fermentum@aol.edu",70),
   ("Samson Ferrell","nulla.dignissim@hotmail.ca",80),
   ("Kadeem Vazquez","magna.nec@google.ca",86),
   ("Fritz Guerra","libero@protonmail.ca",66),
@@ -160,7 +161,7 @@ VALUES
 
 
 
-INSERT INTO `Addresses` (`address`,`ClientId`)
+INSERT INTO `Addresses` (`address`,`cID`)
 VALUES
   ("903-4580 Ligula. Av.",7),
   ("1332 Ac St.",5),
@@ -172,7 +173,7 @@ VALUES
   ("Ap #703-8078 Amet, Street",26),
   ("319-2005 Vulputate Road",15),
   ("476-9718 Magna. Road",19);
-INSERT INTO `Addresses` (`address`,`ClientId`)
+INSERT INTO `Addresses` (`address`,`cID`)
 VALUES
   ("P.O. Box 701, 8684 Ut Av.",19),
   ("Ap #230-7107 Ipsum St.",26),
@@ -184,7 +185,7 @@ VALUES
   ("705-5981 Blandit Road",12),
   ("Ap #763-2262 Aliquam Rd.",10),
   ("P.O. Box 457, 416 Mi Av.",22);
-INSERT INTO `Addresses` (`address`,`ClientId`)
+INSERT INTO `Addresses` (`address`,`cID`)
 VALUES
   ("851-358 Volutpat St.",30),
   ("866-8572 Ipsum Street",3),
@@ -198,7 +199,7 @@ VALUES
   ("3040 Montes, St.",20);
   
  
-INSERT INTO `Projects` (`name`,`AId`)
+INSERT INTO `Projects` (`name`,`aID`)
 VALUES
   ("Bruno Webster",8),
   ("Chester Berger",2),
@@ -210,7 +211,7 @@ VALUES
   ("Phillip Nichols",5),
   ("Glenna Melendez",3),
   ("Jocelyn Dotson",15);
-INSERT INTO `Projects` (`name`,`AId`)
+INSERT INTO `Projects` (`name`,`aID`)
 VALUES
   ("Jerry Kelly",14),
   ("Wylie Whitehead",20),
@@ -222,7 +223,7 @@ VALUES
   ("Clinton Zamora",22),
   ("Xenos Griffin",27),
   ("Cody Knight",13);
-INSERT INTO `Projects` (`name`,`AId`)
+INSERT INTO `Projects` (`name`,`aID`)
 VALUES
   ("Bruno Wheeler",20),
   ("Gareth Sexton",24),
@@ -237,7 +238,7 @@ VALUES
   
   
 
-INSERT INTO `Projects_Employees` (`EId`,`PId`)
+INSERT INTO `Projects_Employees` (`eID`,`pID`)
 VALUES
   (28,26),
   (6,1),
@@ -249,7 +250,7 @@ VALUES
   (25,8),
   (2,3),
   (9,10);
-INSERT INTO `Projects_Employees` (`EId`,`PId`)
+INSERT INTO `Projects_Employees` (`eID`,`pID`)
 VALUES
   (6,21),
   (23,15),
@@ -261,7 +262,7 @@ VALUES
   (26,28),
   (19,24),
   (19,27);
-INSERT INTO `Projects_Employees` (`EId`,`PId`)
+INSERT INTO `Projects_Employees` (`eID`,`pID`)
 VALUES
   (15,11),
   (5,20),

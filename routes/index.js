@@ -9,9 +9,17 @@ const {
     addAddress,
     modifyClient,
     deleteAddress,
-    modifyAddress
+    modifyAddress,
+    getProjectData
 } = require("../db/dbConnector_Sqlite.js");
 
+router.get('/', async function(req, res, next) {
+
+  const tripdata = await getTripData();
+
+  res.render('client', { title: 'Clients', tripdata: tripdata});
+
+});
 
 /* GET home page. */
 router.get('/client', async function(req, res, next) {
@@ -27,8 +35,15 @@ router.get('/address', async function(req, res, next) {
   const addressData = await getAddressData();
   // console.log("index.js: here is address data", addressData)
   res.render('address', { title: 'Address', tripdata: addressData});
-
 });
+
+router.get('/project', async function(req, res, next) {
+
+  const projectData = await getProjectData();
+  // console.log("index.js: here is address data", addressData)
+  res.render('project', { title: 'Project', tripdata: projectData});
+});
+
 
 router.post('/clients', async function(req, res) {
     const { name, email } = req.body;

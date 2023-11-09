@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title><%= title %></title>
+<link rel="icon" href="/public/images/title-icon.jpg" type="image/jpg">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
+<link rel='stylesheet' href='/public/stylesheets/style.css' />
+
+<style>
+  .scrollable-column {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+</style>
+</head>
+
+<body>
+  <div class="container-fluid my-2">
+    <div class="row">
+      <!-- Added Navbar Here -->
+      <%- include('partials/navbar') %>
+      <div class="col-md-7 info-table">
+        <h3 class="table-title">Projects</h3>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">Add Project</button>
+        <table class="table table-striped custom-table">
+            <thead>
+                <tr>
+                    <th>Project Name</th>
+                    <th>Project ID</th>
+                    <th>aID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% tripdata.forEach(function(project){ %>
+                    <tr data-id="<%= project.projectId %>">
+                        <td><%= project.name %></td>
+                        <td><%= project.projectId %></td>
+                        <td><%= project.aID %></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item modify-item" href="#">Modify</a>
+                                    <a class="dropdown-item delete-item" href="#">Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Project Modal -->
+  <div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addProjectModalLabel">Add New Project</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addProjectForm">
+            <div class="form-group">
+              <label for="projectName">Project Name</label>
+              <input type="text" class="form-control" id="projectName" required>
+            </div>
+            <div class="form-group">
+              <label for="addressID">Address ID</label>
+              <input type="number" class="form-control" id="addressID" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Project</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modify Project Modal -->
+  <div class="modal fade" id="modifyProjectModal" tabindex="-1" role="dialog" aria-labelledby="modifyProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modifyProjectModalLabel">Modify Project</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="modifyProjectForm">
+            <input type="hidden" id="modifyProjectId"> <!-- To hold the ID of the project we're modifying -->
+            <div class="form-group">
+              <label for="modifyProjectName">Project Name</label>
+              <input type="text" class="form-control" id="modifyProjectName" required>
+            </div>
+            <div class="form-group">
+              <label for="modifyAddressID">aID</label>
+              <input type="number" class="form-control" id="modifyAddressID" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // Code to add, delete, and modify project details goes here
+      // Replace '/clients' with the appropriate endpoint for projects in your server-side routes
+    });
+  </script>
+</body>
+</html>
