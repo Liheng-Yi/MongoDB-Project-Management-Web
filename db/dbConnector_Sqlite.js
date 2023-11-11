@@ -85,6 +85,13 @@ async function modifyClient(sql, name, email, clientID, req, res) {
 async function addAddress(sql, address, cID, req, res) {
     try {
         const db = await connect();
+                // Check if the client with the given cID exists
+        const clientExists = await db.get("SELECT clientID FROM Clients WHERE clientID = ?", [cID]);
+        
+        if (!clientExists) {
+            res.status(400).send("Error adding the address: Client with the given ID does not exist");
+            return "handled";
+        }
         await db.run(sql, [address, cID], (err) => {
             if (err) {
                 console.error(err.message);
@@ -131,24 +138,23 @@ const deleteAddress = async (addressId) => {
     await db.close();
 }
 
-const modifyAddress = async(sql, address, cID, addressID, req, res) =>{
+const modifyAddress = async (sql, address, cID, addressID) => {
     const db = await connect();
     try {
+        const clientExists = await db.get("SELECT clientID FROM Clients WHERE clientID = ?", [cID]);
+        if (!clientExists) {
+            return "client not found";
+        }
         
-        await db.run(sql, [address, cID, addressID], (err) => {
-            if (err) {
-                console.error(err.message);
-                res.status(500).send("Failed to modify address");
-                return;
-            }
-            res.status(200).send("Address modified successfully");
-        });
+        await db.run(sql, [address, cID, addressID]);
         db.close();
+        return "handled";
     } catch (error) {
         console.error("An error occurred:", error);
-        res.status(500).send("Server error");
+        throw error; // propagate the error to be handled in the route
     }
 }
+
 
 
 

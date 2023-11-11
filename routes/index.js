@@ -55,9 +55,22 @@ router.post('/clients', async function(req, res) {
 router.post('/addresses', async function(req, res) {
     const { address, cID } = req.body;
     const sql = 'INSERT INTO Addresses(address, cID) VALUES(?, ?)';
-    await addAddress(sql, address, cID, req, res);
-    res.redirect('/address')
+    
+    try {
+        const result = await addAddress(sql, address, cID, req, res);
+        console.log("here is the meg: ", result)
+        if (result !== 'handled') {
+            res.redirect('/address');
+        }
+    } catch (error) {
+        console.error("An error occurred:", error);
+        if (!res.headersSent) {
+            // generic error 
+            res.status(500).send("Server error");
+        }
+    }
 });
+
 
 router.delete('/clients/:id', async function(req, res) {
     const clientId = req.params.id;
@@ -103,17 +116,24 @@ router.patch('/clients/:id', async function(req, res) {
 
 router.patch('/addresses/:id', async function(req, res) {
     const { address, cID } = req.body;
+    const addressID = req.params.id;
     const sql = `UPDATE addresses SET address = ?, cID = ? WHERE addressID = ?`;
-    try{
-      await modifyAddress(sql, address, cID, req.params.id, req, res)
-      res.status(200).send("address edited successfully");
+
+    try {
+        const result = await modifyAddress(sql, address, cID, addressID);
+        if (result === 'handled') {
+            res.status(200).send("Address edited successfully");
+        }
+        else{
+            
+            res.redirect('/address');
+        }
     } catch (error) {
         console.error("Failed to edit address:", error);
         res.status(500).send("Internal Server Error");
     }
-    
-
 });
+
 
 
 module.exports = router;

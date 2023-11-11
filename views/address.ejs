@@ -137,8 +137,6 @@
         cID: $('#cID').val()
       };
 
-
-
       $.ajax({
         url: '/addresses', //   endpoint
         method: 'POST',
@@ -148,7 +146,7 @@
           location.reload(); 
         },
         error: function(error) {
-          alert('Failed to add address. Please try again.');
+          alert('Failed to add address. Please check if cID exists');
         }
       });
     });
@@ -203,6 +201,7 @@ $('#modifyAddressForm').on('submit', function(e) {
         },
         error: function(error) {
             alert('Failed to modify address. Please try again.');
+            window.location.href = '/address';// Refresh the page, mvp
         }
     });
 });
