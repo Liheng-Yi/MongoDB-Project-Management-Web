@@ -48,7 +48,7 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item modify-item" href="#">Modify</a>
-                                    <a class="dropdown-item delete-item" href="#">Delete</a>
+                                    <a class="dropdown-item delete-project" href="#">Delete</a>
                                 </div>
                             </div>
                         </td>
@@ -122,8 +122,41 @@
 
   <script>
     $(document).ready(function() {
-      // Code to add, delete, and modify project details goes here
-      // Replace '/clients' with the appropriate endpoint for projects in your server-side routes
+        $('#addProjectForm').on('submit', function(e) {
+            e.preventDefault(); // Prevents the default form submission
+
+            const projectData = {
+                name: $('#projectName').val(), // Corresponds to the 'name' column in the Projects table
+                aID: $('#addressID').val() // aID referencing the Addresses table
+            };
+
+            $.ajax({
+                url: '/projects', // The backend route/API endpoint for projects
+                method: 'POST',
+                data: projectData,
+                success: function(response) {
+                    $('#addProjectModal').modal('hide');
+                    window.location.href = '/project'; // Redirect to the projects page
+                },
+                error: function(error) {
+                    alert('Failed to add project. Please try again.');
+                }
+            });
+        });
+        $('.delete-project').on('click', function(e) {
+            e.preventDefault();
+            const projectID = $(this).closest('tr').data('id');
+            $.ajax({
+                url: `/projects/${projectID}`, // Update the URL to point to the projects endpoint
+                method: 'DELETE',
+                success: function(response) {
+                    window.location.href = '/project'; // Redirect to the projects page after deletion
+                },
+                error: function(error) {
+                    alert('Failed to delete project. Please try again.');
+                }
+            });
+        });
     });
   </script>
 

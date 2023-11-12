@@ -168,43 +168,43 @@
     });
 
 
-// Listen to the modify action
-$('.modify-item').on('click', function(e) {
-    e.preventDefault();
-    const addressID = $(this).closest('tr').data('id');
-    const address = $(this).closest('tr').find('td:nth-child(1)').text();  
-    const cID = $(this).closest('tr').find('td:nth-child(3)').text();
+    // Listen to the modify action
+    $('.modify-item').on('click', function(e) {
+        e.preventDefault();
+        const addressID = $(this).closest('tr').data('id');
+        const address = $(this).closest('tr').find('td:nth-child(1)').text();  
+        const cID = $(this).closest('tr').find('td:nth-child(3)').text();
 
-    $('#modifyAddress').val(address);
-    $('#modifyCID').val(cID);
-    $('#modifyAddressID').val(addressID);
+        $('#modifyAddress').val(address);
+        $('#modifyCID').val(cID);
+        $('#modifyAddressID').val(addressID);
 
-    // Show the modal
-    $('#modifyAddressModal').modal('show');
-});
-
-$('#modifyAddressForm').on('submit', function(e) {
-    e.preventDefault();
-
-    const modifiedData = {
-        address: $('#modifyAddress').val(),
-        cID: $('#modifyCID').val()
-    };
-    const addressID = $('#modifyAddressID').val();
-    $.ajax({
-        url: `/addresses/${addressID}`, 
-        method: 'PATCH', 
-        data: modifiedData,
-        success: function(response) {
-            $('#modifyAddressModal').modal('hide');
-            window.location.href = '/address';// Refresh the page, mvp
-        },
-        error: function(error) {
-            alert('Failed to modify address. Please try again.');
-            window.location.href = '/address';// Refresh the page, mvp
-        }
+        // Show the modal
+        $('#modifyAddressModal').modal('show');
     });
-});
+
+    $('#modifyAddressForm').on('submit', function(e) {
+        e.preventDefault();
+
+        const modifiedData = {
+            address: $('#modifyAddress').val(),
+            cID: $('#modifyCID').val()
+        };
+        const addressID = $('#modifyAddressID').val();
+        $.ajax({
+            url: `/addresses/${addressID}`, 
+            method: 'PATCH', 
+            data: modifiedData,
+            success: function(response) {
+                $('#modifyAddressModal').modal('hide');
+                window.location.href = '/address';// Refresh the page, mvp
+            },
+            error: function(error) {
+                alert('Failed to modify address. Please try again.');
+                window.location.href = '/address';// Refresh the page, mvp
+            }
+        });
+      });
 
 
   });

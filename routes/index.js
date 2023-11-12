@@ -2,15 +2,11 @@ let express = require('express');
 let router = express.Router();
 
 const {
-    getTripData,
-    addClient,
-    getAddressData,
-    deleteClient,
-    addAddress,
-    modifyClient,
-    deleteAddress,
-    modifyAddress,
-    getProjectData
+    getTripData, getAddressData, getProjectData,
+    addClient, addProject, addAddress,
+    deleteClient, deleteProject, deleteAddress,
+    modifyClient, modifyAddress
+    
 } = require("../db/dbConnector_Sqlite.js");
 
 router.get('/', async function(req, res, next) {
@@ -58,7 +54,6 @@ router.post('/addresses', async function(req, res) {
     
     try {
         const result = await addAddress(sql, address, cID, req, res);
-        console.log("here is the meg: ", result)
         if (result !== 'handled') {
             res.redirect('/address');
         }
@@ -71,6 +66,23 @@ router.post('/addresses', async function(req, res) {
     }
 });
 
+router.post('/projects', async function(req, res) {
+    const { name, aID } = req.body; // Extract project name and address ID from the request
+    const sql = 'INSERT INTO Projects(name, aID) VALUES(?, ?)'; // SQL statement to insert into the Projects table
+    console.log(req.body)
+    try {
+        // Assuming you have a function to add a project, similar to addAddress
+        const result = await addProject(sql, name, aID, req, res);
+        if (result !== 'handled') {
+            res.redirect('/project'); // Redirect to the project page after successful insertion
+        }
+    } catch (error) {
+        console.error("An error occurred:", error);
+        if (!res.headersSent) {
+            res.status(500).send("Server error");
+        }
+    }
+});
 
 router.delete('/clients/:id', async function(req, res) {
     const clientId = req.params.id;
@@ -98,6 +110,19 @@ router.delete('/address/:id', async function(req, res) {
     }
 });
 
+router.delete('/projects/:id', async function(req, res) {
+    const projectId = req.params.id;
+    console.log(projectId)
+    try {
+        await deleteProject(projectId);
+        // Successfully deleted the project
+        res.status(200).send("Project deleted successfully");
+    } catch (error) {
+        // Handle the error
+        console.error("Failed to delete project:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 router.patch('/clients/:id', async function(req, res) {
     const { name, email } = req.body;
@@ -125,7 +150,6 @@ router.patch('/addresses/:id', async function(req, res) {
             res.status(200).send("Address edited successfully");
         }
         else{
-            
             res.redirect('/address');
         }
     } catch (error) {
