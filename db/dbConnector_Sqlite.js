@@ -9,7 +9,6 @@ async function connect() {
         filename: "./db/company.sqlite3",
         driver: sqlite3.Database
     });
-    // Enable foreign key enforcement for the session
     await db.exec('PRAGMA foreign_keys = ON');
     return db;
 }

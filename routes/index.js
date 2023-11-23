@@ -1,5 +1,8 @@
 let express = require('express');
 let router = express.Router();
+const fs = require('fs').promises;
+const path = require('path');
+
 
 const {
     getTripData, getAddressData, getProjectData,
@@ -154,6 +157,28 @@ router.patch('/addresses/:id', async function(req, res) {
         }
     } catch (error) {
         console.error("Failed to edit address:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+router.post('/reset', async function(req, res) {
+    // Construct the path to the .sql file
+    const sqlFilePath = path.join(__dirname, '/sql/testing.sql');
+    console.log("!!!")
+    try {
+        // Read the file's content
+        const sql = await fs.readFile(sqlFilePath, 'utf8');
+        console.log(sql)
+        // Pass the SQL file content to the reset function
+        const result = await reset(sql);
+
+        if (result === 'handled') {
+            res.status(200).send("Reset successfully");
+        } else {
+            res.redirect('/client');
+        }
+    } catch (error) {
+        console.error("Failed to reset:", error);
         res.status(500).send("Internal Server Error");
     }
 });
