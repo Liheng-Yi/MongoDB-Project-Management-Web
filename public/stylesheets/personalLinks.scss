@@ -1,0 +1,147 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   }
+   
+
+   
+   @mixin button($bcolor,
+   $url,
+   $x1,
+   $y1,
+   $bor,
+   $col) {
+    background: $bcolor;
+    -webkit-mask: url($url);
+    mask: url($url);
+    -webkit-mask-size: $x1 $y1;
+    mask-size: $x1 $y1;
+    border: $bor;
+    color: $col;
+   }
+   
+   .button-container-1 {
+    width: 130px;
+    height: auto;
+    overflow: hidden;
+    font-family: 'Lato', sans-serif;
+    font-weight: 250;
+    font-size: 20px;
+    transition: 1.5s;
+    letter-spacing: 1px;
+    position: fixed;
+    right: 20px;
+    top: 0px;
+    border-bottom-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    padding-top: 17px;
+   
+    button {
+     width: 101%;
+     height: 100%;
+     font-family: 'Lato', sans-serif;
+     font-weight: 300;
+     font-size: 11px;
+     letter-spacing: 1px;
+     font-weight: bold;
+   
+     @include button(#ce2222,
+     "https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/nature-sprite.png",
+     2300%,
+     100%,
+     none,
+     rgb(255, 255, 255)323);
+     cursor: pointer;
+     -webkit-animation: ani2 0.7s steps(22) forwards;
+     animation: ani2 0.7s steps(22) forwards;
+   
+     &:hover {
+      -webkit-animation: ani 0.7s steps(22) forwards;
+      animation: ani 0.7s steps(22) forwards;
+     }
+    }
+   }
+   .mas {
+       color: rgb(84, 179, 46);
+       text-align: center;
+       width: 101%;
+       font-family: 'Lato', sans-serif;
+       font-weight: 300;
+       position: absolute;
+       font-size: 11px;
+       border: #ce2222;
+       overflow: hidden;
+       font-weight: bold;
+        
+   }
+   
+   @-webkit-keyframes ani {
+    from {
+     -webkit-mask-position: 0 0;
+     mask-position: 0 0;
+    }
+   
+    to {
+     -webkit-mask-position: 100% 0;
+     mask-position: 100% 0;
+    }
+   }
+   
+   @keyframes ani {
+    from {
+     -webkit-mask-position: 0 0;
+     mask-position: 0 0;
+    }
+   
+    to {
+     -webkit-mask-position: 100% 0;
+     mask-position: 100% 0;
+    }
+   }
+   
+// Assuming this is the new class for your name tag container
+// ... Your existing SCSS ...
+// Assuming this is the new class for your name tag container
+// .name-tag-container {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     position: fixed;
+//     right: 20px;
+//     top: 0px;
+//     width: auto;
+//     height: auto;
+//     padding: 10px;
+//     box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+//     border-bottom-right-radius: 35px;
+//     border-bottom-left-radius: 35px;
+//     background: #333; // The background color of your name tag
+//     cursor: pointer;
+//     // Use the mixin to apply the initial button styles
+//     @include button(#000, "https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/nature-sprite.png", 2300%, 100%, none, #fff);
+//     // Set up the mask size and position
+//     -webkit-mask-size: cover;
+//     mask-size: cover;
+//     -webkit-mask-position: 0 0;
+//     mask-position: 0 0;
+//     transition: background 0.5s ease; // Transition for the hover effect
+    
+//     // Define the hover animation
+//     &:hover {
+//       background: purple; // Change the color on hover if desired
+//       -webkit-animation: ani 0.7s steps(22) forwards;
+//       animation: ani 0.7s steps(22) forwards;
+//     }
+    
+    
+
+
+//     // You may want to adjust the child element styles as well
+//     .name, .icon-container {
+//       z-index: 1; // Ensure they are above the animated background
+//     }
+//   }
+  
+  // ... Rest of your SCSS ...

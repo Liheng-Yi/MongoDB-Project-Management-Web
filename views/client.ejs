@@ -8,6 +8,10 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
 <link rel='stylesheet' href='/public/stylesheets/style.css' />
+<link rel='stylesheet' href='/public/stylesheets/compiledCSS/test_personalLinks.css' />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 
 <style>
   .scrollable-column {
@@ -21,7 +25,7 @@
   <div class="container-fluid my-2">
     <div class="row">
       <!-- Added Navbar Here -->
-      <%- include('partials/navbar') %>
+      <%- include('partials/navbar') %>  
       <div class="col-md-7 info-table">
         <h3 class ="table-title">Clients</h3>
         <button class="btn btn-primary" data-toggle="modal" data-target="#addClientModal">Add Client</button>
@@ -60,6 +64,7 @@
     </div>
   </div>
   <%- include('partials/footer') %>
+  <%- include('partials/personalLinks') %>
 
 <!-- pop-up to add new address -->
 <div class="modal fade" id="addClientModal" tabindex="-1" role="dialog" aria-labelledby="addClientModalLabel" aria-hidden="true">

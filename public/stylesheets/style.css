@@ -381,7 +381,54 @@ nav.shift ul li a:hover:after {
 }
 
 .footer-container hr {
-  margin-top: 0px; /* Reduce top margin */
-  margin-bottom: 0px; /* Reduce bottom margin */
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
+.social-icons img {
+  width: 34px;
+  height: auto;
+}
+
+.personalLinks {
+
+  
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+  border-bottom-right-radius: 35px;
+  border-bottom-left-radius: 35px;
+}
+
+.name {
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-top: 0;
+}
+
+.btn-floating {
+  border-radius: 50%;
+  width: 27px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.btn-floating i {
+  font-size: 12px;
+}
