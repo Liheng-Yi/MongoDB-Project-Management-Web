@@ -1,0 +1,33 @@
+// main client table
+{
+    "name": "Justin Clayton",
+    "email": "malesuada@protonmail.org",
+    "address": "6213 Tempor St.",
+    "projects": [
+        {
+            "projectId": ObjectId(), 
+            "name": "turpis egestas.",
+            "employees": [
+                ObjectId(""), // Reference to an Employee document
+                ObjectId("")
+            ]
+        },
+        {
+            "projectId": ObjectId(), 
+            "name": "Second Project",
+            "employees": [
+                ObjectId(""), 
+                ObjectId("") 
+            ]
+        }
+    ]
+}
+
+// employee table
+{
+    "name": "Employee Name",
+    "email": "employee@email.com",
+    "billingRate": 30
+}
+
+
