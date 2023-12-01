@@ -72,6 +72,20 @@ const updateResult = await employees.updateOne(
     { $inc: { "billingRate": 10 } }
 );
 
+// find employees with a billing rate greater than or equal to 30, 
+//project only their names and email addresses, and sort the results by billing rate in descending order
+
+
+
+db.employees.find(
+  { "billingRate": { $gte: 30 } }, 
+  { "_id": 0, "name": 1, "email": 1 } 
+).sort(
+  { "billingRate": -1 } 
+)
+
+
+
 
 
 
