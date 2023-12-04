@@ -17,75 +17,103 @@
   }
 </style>
 </head>
-
 <body>
-  <div class="container-fluid my-2">
-    <div class="row">
-      <!-- Added Navbar Here -->
-      <%- include('partials/navbar') %>
-      <div class="col-md-7 info-table">
-        <h3 class="table-title">Projects</h3>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">Add Project</button>
-        <table class="table table-striped custom-table">
-            <thead>
-                <tr>
-                    <th>Project Name</th>
-                    <th>Project ID</th>
-                    <th>aID</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% tripdata.forEach(function(project){ %>
-                    <tr data-id="<%= project.projectId %>">
-                        <td><%= project.name %></td>
-                        <td><%= project.projectId %></td>
-                        <td><%= project.aID %></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Actions
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item modify-item" href="#">Modify</a>
-                                    <a class="dropdown-item delete-project" href="#">Delete</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
-      </div>
+    <div class="container-fluid my-2">
+        <div class="row">
+            <%- include('partials/navbar') %>
+            <div class="col-md-7 info-table">
+                <h3 class="table-title">Projects</h3>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">Add Project</button>
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Project ID</th> 
+                            <th>Project Name</th>
+                            <th>Client Name</th>
+                            <th>Employee Name (ID)</th>
+                            <th>Actions</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% clientData.forEach(function(client){ %>
+                            <% client.projects.forEach(function(project){ %>
+                                <% project.employees.forEach(function(employee, index){ %>
+                                    <tr>
+                                        <% if(index === 0){ %>
+                                            <td rowspan="<%= project.employees.length %>"><%= project.projectId %></td> <!-- Display Project ID -->
+                                            <td rowspan="<%= project.employees.length %>"><%= project.name %></td>
+                                            <td rowspan="<%= project.employees.length %>"><%= client.client_name %></td>
+                                        <% } %>
+                                        <td><%= employee.name %> (<%= employee._id %>)</td>
+                                        <% if(index === 0){ %>
+                                            <td rowspan="<%= project.employees.length %>">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton<%= project._id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= project._id %>">
+                                                        <a class="dropdown-item modify-project" href="#" 
+                                                           data-project-id="<%= project.projectId %>" 
+                                                           data-project-name="<%= project.name %>" 
+                                                           data-client-name="<%= client.client_name %>"
+                                                           data-employee-id="<%= project.employees.length > 0 ? project.employees[0]._id : '' %>">Modify</a>
+                                                        <a class="dropdown-item delete-project" href="#">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        <% } %>
+                                    </tr>
+                                <% }); %>
+                            <% }); %>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
+</body>
+
+
+
+
+
+
+
+
   <%- include('partials/footer') %>
+  <%- include('partials/personalLinks') %>
+
+
   <!-- Add Project Modal -->
-  <div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addProjectModalLabel">Add New Project</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="addProjectForm">
-            <div class="form-group">
-              <label for="projectName">Project Name</label>
-              <input type="text" class="form-control" id="projectName" required>
-            </div>
-            <div class="form-group">
-              <label for="addressID">Address ID</label>
-              <input type="number" class="form-control" id="addressID" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Add Project</button>
-          </form>
+    <div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addProjectModalLabel">Add New Project</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addProjectForm">
+              <div class="form-group">
+                <label for="projectName">Project Name</label>
+                <input type="text" class="form-control" id="projectName" required>
+              </div>
+              <div class="form-group">
+                <label for="addressID">Client ID</label>
+                <input class="form-control" id="addressID" required>
+              </div>
+              <div class="form-group">
+                <label for="employeeID">Employee ID</label>
+                <input  class="form-control" id="employeeID" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Add Project</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
   <!-- Modify Project Modal -->
   <div class="modal fade" id="modifyProjectModal" tabindex="-1" role="dialog" aria-labelledby="modifyProjectModalLabel" aria-hidden="true">
@@ -99,14 +127,18 @@
         </div>
         <div class="modal-body">
           <form id="modifyProjectForm">
-            <input type="hidden" id="modifyProjectId"> <!-- To hold the ID of the project we're modifying -->
+            <input type="hidden" id="modifyProjectId"> 
             <div class="form-group">
               <label for="modifyProjectName">Project Name</label>
               <input type="text" class="form-control" id="modifyProjectName" required>
             </div>
             <div class="form-group">
-              <label for="modifyAddressID">aID</label>
-              <input type="number" class="form-control" id="modifyAddressID" required>
+              <label for="modifyAddressID">Client ID</label>
+              <input class="form-control" id="modifyAddressID" required>
+            </div>
+            <div class="form-group">
+              <label for="modifyEmployeeID">Employee ID</label>
+              <input class="form-control" id="modifyEmployeeID" required>
             </div>
             <button type="submit" class="btn btn-primary">Save Changes</button>
           </form>
@@ -123,40 +155,100 @@
   <script>
     $(document).ready(function() {
         $('#addProjectForm').on('submit', function(e) {
-            e.preventDefault(); // Prevents the default form submission
+            e.preventDefault(); 
 
             const projectData = {
-                name: $('#projectName').val(), // Corresponds to the 'name' column in the Projects table
-                aID: $('#addressID').val() // aID referencing the Addresses table
+                name: $('#projectName').val(), 
+                aID: $('#addressID').val(),
+                eID: $('#employeeID').val()
             };
 
             $.ajax({
-                url: '/projects', // The backend route/API endpoint for projects
+                url: '/projects', 
                 method: 'POST',
                 data: projectData,
                 success: function(response) {
                     $('#addProjectModal').modal('hide');
-                    window.location.href = '/project'; // Redirect to the projects page
+                    window.location.href = '/project'; 
                 },
                 error: function(error) {
                     alert('Failed to add project. Please try again.');
                 }
             });
         });
-        $('.delete-project').on('click', function(e) {
-            e.preventDefault();
-            const projectID = $(this).closest('tr').data('id');
-            $.ajax({
-                url: `/projects/${projectID}`, // Update the URL to point to the projects endpoint
-                method: 'DELETE',
-                success: function(response) {
-                    window.location.href = '/project'; // Redirect to the projects page after deletion
-                },
-                error: function(error) {
-                    alert('Failed to delete project. Please try again.');
-                }
-            });
-        });
+
+
+$(document).on('click', 'delete-project', function(e) {
+    e.preventDefault();
+    const projectID = $(this).closest('tr').data('id');
+    console.log("Deleting project ID: ", projectID);
+
+    $.ajax({
+        url: `/projects/${projectID}`,
+        method: 'DELETE',
+        success: function(response) {
+            window.location.href = '/project';
+        },
+        error: function(error) {
+            alert('Failed to delete project. Please try again.');
+        }
+    });
+});
+
+
+    
+
+
+
+
+$('.modify-project').on('click', function(e) {
+    e.preventDefault();
+
+    const projectId = $(this).closest('tr').data('id');
+    const projectName = $(this).closest('tr').find('.project-name').text();
+    const clientId = $(this).closest('tr').find('.client-id').text();
+    const employeeId = $(this).closest('tr').find('.employee-id').text();
+
+    $('#modifyProjectId').val(projectId);
+    $('#modifyProjectName').val(projectName);
+    $('#modifyAddressID').val(clientId);
+    $('#modifyEmployeeID').val(employeeId);
+
+    $('#modifyProjectModal').modal('show');
+});
+
+
+
+
+
+$('#modifyProjectForm').on('submit', function(e) {
+    e.preventDefault();
+
+    const projectId = $('#modifyProjectId').val();
+    const modifiedProjectData = {
+        name: $('#modifyProjectName').val(),
+        clientID: $('#modifyAddressID').val(),
+        employeeID: $('#modifyEmployeeID').val()
+    };
+
+    $.ajax({
+        url: `/projects/${projectId}`,
+        method: 'PATCH',
+        data: modifiedProjectData,
+        success: function(response) {
+            $('#modifyProjectModal').modal('hide');
+            window.location.reload();
+        },
+        error: function(error) {
+            alert('Failed to modify project. Please try again.');
+        }
+    });
+});
+
+
+
+
+
     });
   </script>
 
